@@ -1,0 +1,19 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Mi perfil</h2>
+
+  <div *ngIf="user; else noUser">
+    <p><strong>ID:</strong> {{ user.id }}</p>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Bio:</strong> {{ user.bio ?? '(sin biografia)' }}</p>
+
+    <hr />
+
+    <p><strong>Token guardado en localStorage:</strong></p>
+    <p class="text-break small text-muted">{{ token }}</p>
+  </div>
+
+  <ng-template #noUser>
+    <p>No hay ningun usuario logueado.</p>
+  </ng-template>
+</div>
