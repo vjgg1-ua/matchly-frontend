@@ -1,1 +1,77 @@
-<p>register works!</p>
+<div class="container mt-5">
+	<div class="row justify-content-center">
+		<div class="col-md-5">
+			<div class="card p-4 shadow-sm">
+				<h2 class="mb-4 text-center">Crear cuenta</h2>
+				
+				<!-- Mensaje de éxito — solo se muestra cuando exito es true -->
+				<div *ngIf="success" class="alert alert-success">
+					¡Registro completado! Redirigiendo...
+				</div>
+
+				<!-- Mensaje de error — solo se muestra cuando error tiene contenido -->
+				<div *ngIf="error" class="alert alert-danger">
+					{{ error }}
+				</div>
+
+				<!-- El formulario — ngSubmit llama al método registrar() al hacer submit -->
+				<form *ngIf="!success" (ngSubmit)="register()" #form="ngForm">
+					<div class="mb-3">
+						<label class="form-label">Nombre</label>
+						<input type="text" class="form-control" [(ngModel)]="user.username" name="username" required minlength="2" #username="ngModel">
+						<!-- Mensaje de validación — solo aparece si tocaron el campo y está vacío -->
+						<div *ngIf="username.invalid && username.touched" class="text-danger small mt-1">
+							El nombre es obligatorio
+						</div>
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label">Email</label>
+						<input type="email" class="form-control" [(ngModel)]="user.email" name="email" required email #emailInput="ngModel">
+						<div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger small mt-1">
+							Introduce un email válido
+						</div>
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label">Contraseña</label>
+						<div class="input-group">
+							<input type="{{ mostrarContrasena ? 'text' : 'password' }}" class="form-control" [(ngModel)]="user.password" name="password" required minlength="6" #password="ngModel">
+							<span class="input-group-text" (click)="cambiarVisibilidadContrasena()">
+								<i class="bi" [ngClass]="mostrarContrasena ? 'bi-eye-slash' : 'bi-eye'"></i>
+							</span>
+							<div *ngIf="password.invalid && password.touched" class="text-danger small mt-1">
+								La contraseña debe tener al menos 6 caracteres
+							</div>
+						</div>
+						
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label">Repetir contraseña</label>
+						<div class="input-group">
+							<input type="{{ mostrarContrasenaRepetida ? 'text' : 'password' }}" class="form-control" [(ngModel)]="contrasenaConfirmada" name="contrasenaConfirmada" required minlength="6" #contrasena="ngModel">
+							<span class="input-group-text" (click)="cambiarVisibilidadContrasenaRepetida()">
+								<i class="bi" [ngClass]="mostrarContrasena ? 'bi-eye-slash' : 'bi-eye'"></i>
+							</span>
+							<div *ngIf="contrasena.invalid && contrasena.touched" class="text-danger small mt-1">
+								La contraseña debe tener al menos 6 caracteres
+							</div>
+						</div>
+						
+					</div>
+
+					<button type="submit" class="btn btn-primary w-100" [disabled]="form.invalid || cargando">
+						<!-- Muestra spinner mientras carga o el texto normal -->
+						<span *ngIf="cargando" class="spinner-border spinner-border-sm me-2"></span>
+						{{ cargando ? 'Registrando...' : 'Registrarse' }}
+					</button>
+				</form>
+
+				<p class="text-center mt-3 mb-0">
+					¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,35 +1,48 @@
-<div class="container mt-5" style="max-width: 400px;">
-  <h2 class="mb-4">Iniciar sesion</h2>
+<div class="container mt-5">
+	<div class="row justify-content-center">
+		<div class="col-md-5">
+			<div class="card p-4 shadow-sm">
+				<h2 class="mb-4 text-center">Iniciar sesión</h2>
+				
+				<!-- Mensaje de éxito — solo se muestra cuando exito es true -->
+				<div *ngIf="success" class="alert alert-success">
+					¡Sesión iniciada! Redirigiendo...
+				</div>
 
-  <div class="alert alert-danger" *ngIf="errorMessage">
-    {{ errorMessage }}
-  </div>
+				<!-- Mensaje de error — solo se muestra cuando error tiene contenido -->
+				<div *ngIf="error" class="alert alert-danger">
+					{{ error }}
+				</div>
 
-  <form (ngSubmit)="onSubmit()">
-    <div class="mb-3">
-      <label for="email" class="form-label">Email</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        class="form-control"
-        [(ngModel)]="credentials.email"
-        required
-      />
-    </div>
+				<!-- El formulario — ngSubmit llama al método registrar() al hacer submit -->
+				<form *ngIf="!success" (ngSubmit)="login()" #form="ngForm">
+					<div class="mb-3">
+						<label class="form-label">Email</label>
+						<input type="email" class="form-control" [(ngModel)]="user.email" name="email" required email #emailInput="ngModel">
+						<div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger small mt-1">
+							Introduce un email válido
+						</div>
+					</div>
 
-    <div class="mb-3">
-      <label for="password" class="form-label">Contraseña</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        class="form-control"
-        [(ngModel)]="credentials.password"
-        required
-      />
-    </div>
+					<div class="mb-3">
+						<label class="form-label">Contraseña</label>
+						<input type="password" class="form-control" [(ngModel)]="user.password" name="password" required minlength="6" #password="ngModel">
+						<div *ngIf="password.invalid && password.touched" class="text-danger small mt-1">
+							La contraseña debe tener al menos 6 caracteres
+						</div>
+					</div>
 
-    <button type="submit" class="btn btn-primary w-100">Entrar</button>
-  </form>
+					<button type="submit" class="btn btn-primary w-100" [disabled]="form.invalid || cargando">
+						<!-- Muestra spinner mientras carga o el texto normal -->
+						<span *ngIf="cargando" class="spinner-border spinner-border-sm me-2"></span>
+						{{ cargando ? 'Iniciando sesión...' : 'Iniciar sesión' }}
+					</button>
+				</form>
+
+				<p class="text-center mt-3 mb-0">
+					¿No tienes cuenta? <a routerLink="/register">Registrarse</a>
+				</p>
+			</div>
+		</div>
+	</div>
 </div>

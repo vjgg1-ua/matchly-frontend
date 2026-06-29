@@ -1,35 +1,53 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LoginRequest } from '../../models/auth.model';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, RouterLink, CommonModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
+
 export class Login {
-  credentials: LoginRequest = {
+  user: LoginRequest = {
     email: '',
     password: ''
   };
+
+  //Estado del componente
+  cargando = false;
+  error = '';
+  success = false;
+  form: any;
+   
+  constructor(private authService: AuthService, private router: Router, private cdr: ChangeDetectorRef) { }
  
-  errorMessage: string | null = null;
+  login(): void {
+    this.cargando =  true;
+		this.error = '';
  
-  constructor(private authService: AuthService, private router: Router) { }
- 
-  onSubmit(): void {
-    this.errorMessage = null;
- 
-    this.authService.login(this.credentials).subscribe({
-      next: () => {
+    this.authService.login(this.user).subscribe({
+      next: (response) => {
+        console.log("Usuario correcto: ", response);
+				this.success = true;
+				this.cargando = false;
         this.router.navigate(['/profile']);
+
+        this.cdr.detectChanges();
       },
       error: (err) => {
-        this.errorMessage = err.error?.error ?? 'Error al iniciar sesion';
+        this.cargando = false;
+        if(err.error?.status === "403"){
+          this.error = 'El usuario o contraseña no son válidos';
+        }
+        else{
+          this.error = 'Se ha producido un problema durante el inicio de sesión';
+        }
+        this.cdr.detectChanges();
       }
     });
   }
