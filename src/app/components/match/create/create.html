@@ -1,1 +1,39 @@
-<p>create works!</p>
+<div class="container-fluid bg-primary">
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-8">
+            <h2>Crear competición</h2>
+            <form *ngIf="!success" (ngSubmit)="createMatch()" #form="ngForm">
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <label class="form-label">Titulo</label>
+                            <input type="text" class="form-control" [(ngModel)]="match.title" name="title" required minlength="2">
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label">Disciplina</label>
+                            <select class="form-select" [(ngModel)]="match.disciplineId" (change)="onDisciplineChange()" name="disciplineId" required>
+                                <option [ngValue]="null" disabled>
+                                    Selecciona una disciplina
+                                </option>
+                                <option *ngFor="let discipline of disciplines" [ngValue]="discipline.id">
+                                    {{ discipline.name }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label">Subcategoria</label>
+                            <select class="form-select" [(ngModel)]="match.subdisciplineId" name="subdisciplineId" required>
+                                <option [ngValue]="null" disabled>
+                                    Selecciona una subcategoria
+                                </option>
+                                <option *ngFor="let subdiscipline of subdisciplines" [ngValue]="subdiscipline.id">
+                                    {{ subdiscipline.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

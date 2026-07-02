@@ -23,6 +23,7 @@ export interface MatchResponse {
     subdisciplineId: number;
     userId: number;
     format: MatchFormat;
+    status: MatchStatus;
     location: string;
     scheduledAt: string;
     maxPlayer: number;
