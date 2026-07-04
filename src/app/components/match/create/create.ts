@@ -9,7 +9,7 @@ import { DisciplineService } from '../../../services/discipline.service';
 
 @Component({
   selector: 'app-create',
-  imports: [FormsModule, RouterLink, CommonModule, ],
+  imports: [FormsModule, CommonModule, ],
   templateUrl: './create.html',
   styleUrl: './create.css',
 })
@@ -17,18 +17,25 @@ import { DisciplineService } from '../../../services/discipline.service';
 export class Create implements OnInit{
   match: CreateMatchRequest = {
     title: '',
-    description: '',
+    description: null,
     disciplineId: 0,
     subdisciplineId: 0,
-    userId: 0,
+    //userId: 0,
     format: "ONE_VS_ONE",
     location: '',
     scheduledAt: '',
-    maxPlayer: 0,
-    maxTeams: 0,
-    maxPlayersTeam: 0
+    maxPlayers: 0,
+    maxTeams: undefined,
+    maxPlayersTeam: undefined
   }
 
+  matchFormats: { label: string, value: MatchFormat }[] = [
+    { label: '1 vs 1', value: 'ONE_VS_ONE' },
+    { label: '2 vs 2', value: 'TWO_VS_TWO' },
+    { label: 'Equipos', value: 'TEAMS' },
+    { label: 'Todos contra todos', value: 'FREE_FOR_ALL' },
+    { label: 'Cooperativo', value: 'COOPERATIVE' }
+  ];
   loading = false;
   success = false;
   error = '';
@@ -46,7 +53,33 @@ export class Create implements OnInit{
   }
 
   createMatch(){
+    this.loading = true;
+    this.error = '';
 
+    const token = localStorage.getItem('token');
+    console.log(token);
+    if(!token){
+      this.error = 'No se detecta sesión... Vuelva a iniciar sesión';
+      this.loading = false;
+      return;
+    }
+
+    if (this.match.scheduledAt && !this.match.scheduledAt.includes(':00', this.match.scheduledAt.length - 3)) {
+      this.match.scheduledAt = this.match.scheduledAt + ':00';
+    }
+
+    this.matchService.createMatch(this.match).subscribe({
+      next: (response) => {
+        this.success = true;
+        this.loading = false;
+        console.log('Se ha creado correctamente: ', response);
+      },
+      error: (err) => {
+        this.loading = false;
+        this.error = err.error?.error ?? 'Error al crear la partida';
+        this.cdr.detectChanges();
+      }
+    })
   }
 
   onDisciplineChange(){

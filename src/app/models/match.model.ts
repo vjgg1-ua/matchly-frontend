@@ -3,30 +3,30 @@ export type MatchStatus = 'OPEN' | 'FULL' | 'IN_PROGRESS' | 'FINISHED' | 'CANCEL
 
 export interface CreateMatchRequest {
     title: string;
-    description: string;
+    description?: string | null;
     disciplineId: number;
     subdisciplineId: number;
-    userId: number;
+    //userToken: number; //En lugar de userId pasar mejor JWT y back verifique
     format: MatchFormat;
     location: string;
     scheduledAt: string;
-    maxPlayer: number;
-    maxTeams: number;
-    maxPlayersTeam: number;
+    maxPlayers: number;
+    maxTeams?: number | undefined;
+    maxPlayersTeam?: number | undefined;
 }
 
 export interface MatchResponse {
     id: number;
     title: string;
-    description: string;
+    description?: string;
     disciplineId: number;
     subdisciplineId: number;
-    userId: number;
+    organizer: number;
     format: MatchFormat;
     status: MatchStatus;
     location: string;
     scheduledAt: string;
     maxPlayer: number;
-    maxTeams: number;
-    maxPlayersTeam: number;
+    maxTeams?: number | undefined;
+    maxPlayersTeam?: number | undefined;
 }
