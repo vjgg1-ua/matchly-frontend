@@ -1,82 +1,84 @@
-<div class="container-fluid bg-primary pt-5 pb-5">
-    <div class="row justify-content-center">
-        <div class="col-md-12 col-lg-8">
-            <h2>Crear partido</h2>
-            <form *ngIf="!success" (ngSubmit)="createMatch()" #form="ngForm">
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-12 col-md-6 mb-3">
-                            <label class="form-label">Título *</label>
-                            <input type="text" class="form-control" [(ngModel)]="match.title" name="title" required minlength="2">
+<div class="page bg-primary container-fluid flex-column">
+    <div class="container-fluid pt-5 pb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-8">
+                <h2>Crear partido</h2>
+                <form *ngIf="!success" (ngSubmit)="createMatch()" #form="ngForm">
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-12 col-md-6 mb-3">
+                                <label class="form-label">Título *</label>
+                                <input type="text" class="form-control" [(ngModel)]="match.title" name="title" required minlength="2">
+                            </div>
+                            <div class="col-12 col-md-3 mb-3">
+                                <label class="form-label">Disciplina *</label>
+                                <select class="form-select" [(ngModel)]="match.disciplineId" (change)="onDisciplineChange()" name="disciplineId" required>
+                                    <option [ngValue]="null" disabled>
+                                        Selecciona una disciplina
+                                    </option>
+                                    <option *ngFor="let discipline of disciplines" [ngValue]="discipline.id">
+                                        {{ discipline.name }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-3 mb-3">
+                                <label class="form-label">Subcategoría</label>
+                                <select class="form-select" [(ngModel)]="match.subdisciplineId" name="subdisciplineId" required>
+                                    <option [ngValue]="null" disabled>
+                                        Selecciona una subcategoria
+                                    </option>
+                                    <option *ngFor="let subdiscipline of subdisciplines" [ngValue]="subdiscipline.id">
+                                        {{ subdiscipline.name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>    
+                        <div class="row">
+                            <div class="col-12 col-md-4 mb-3">
+                                <label class="form-label">Formato *</label>
+                                <select class="form-select" [(ngModel)]="match.format" name="format" required>
+                                    <option [ngValue]="null" disabled>
+                                        Selecciona un formato
+                                    </option>
+                                    <option *ngFor="let matchFormat of matchFormats" [ngValue]="matchFormat.value">
+                                        {{ matchFormat.label }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-8 mb-3">
+                                <label class="form-label">Descripción de la competición</label>
+                                <textarea style="resize: none;" type="text" [(ngModel)]="match.description" name="description" class="form-control" maxlength="500"></textarea>
+                            </div>
                         </div>
-                        <div class="col-12 col-md-3 mb-3">
-                            <label class="form-label">Disciplina *</label>
-                            <select class="form-select" [(ngModel)]="match.disciplineId" (change)="onDisciplineChange()" name="disciplineId" required>
-                                <option [ngValue]="null" disabled>
-                                    Selecciona una disciplina
-                                </option>
-                                <option *ngFor="let discipline of disciplines" [ngValue]="discipline.id">
-                                    {{ discipline.name }}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-md-3 mb-3">
-                            <label class="form-label">Subcategoría</label>
-                            <select class="form-select" [(ngModel)]="match.subdisciplineId" name="subdisciplineId" required>
-                                <option [ngValue]="null" disabled>
-                                    Selecciona una subcategoria
-                                </option>
-                                <option *ngFor="let subdiscipline of subdisciplines" [ngValue]="subdiscipline.id">
-                                    {{ subdiscipline.name }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>    
-                    <div class="row">
-                        <div class="col-12 col-md-4 mb-3">
-                            <label class="form-label">Formato *</label>
-                            <select class="form-select" [(ngModel)]="match.format" name="format" required>
-                                <option [ngValue]="null" disabled>
-                                    Selecciona un formato
-                                </option>
-                                <option *ngFor="let matchFormat of matchFormats" [ngValue]="matchFormat.value">
-                                    {{ matchFormat.label }}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-md-8 mb-3">
-                            <label class="form-label">Descripción de la competición</label>
-                            <textarea style="resize: none;" type="text" [(ngModel)]="match.description" name="description" class="form-control" maxlength="500"></textarea>
+                        <div class="row">
+                            <div class="col-12 col-md-3">
+                                <label class="form-label">Localización</label>
+                                <input type="text" class="form-control" [(ngModel)]="match.location" name="location" required minlength="2">
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <label class="form-label">Fecha inicio</label>
+                                <input type="datetime-local" class="form-control" [(ngModel)]="match.scheduledAt" name="scheduledAt" required>
+                            </div>
+                            <div class="col-12 col-md-2">
+                                <label class="form-label">Max. jugadores*</label>
+                                <input type="number" class="form-control" [(ngModel)]="match.maxPlayers" name="maxPlayers" min="2" required>
+                            </div>
+                            <div class="col-12 col-md-2">
+                                <label class="form-label">Max. Equipos</label>
+                                <input type="number" class="form-control" [(ngModel)]="match.maxTeams" name="maxTeams" min="2" [disabled]="match.format != 'TEAMS'">
+                            </div>
+                            <div class="col-12 col-md-2">
+                                <label class="form-label">Jugadores / equipo</label>
+                                <input type="number" class="form-control" [(ngModel)]="match.maxPlayersTeam" name="maxPlayersTeam" min="1" [disabled]="match.format != 'TEAMS'">
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12 col-md-3">
-                            <label class="form-label">Localización</label>
-                             <input type="text" class="form-control" [(ngModel)]="match.location" name="location" required minlength="2">
-                        </div>
-                        <div class="col-12 col-md-3">
-                            <label class="form-label">Fecha inicio</label>
-                            <input type="datetime-local" class="form-control" [(ngModel)]="match.scheduledAt" name="scheduledAt" required>
-                        </div>
-                        <div class="col-12 col-md-2">
-                            <label class="form-label">Max. jugadores*</label>
-                            <input type="number" class="form-control" [(ngModel)]="match.maxPlayers" name="maxPlayers" min="2" required>
-                        </div>
-                        <div class="col-12 col-md-2">
-                            <label class="form-label">Max. Equipos</label>
-                            <input type="number" class="form-control" [(ngModel)]="match.maxTeams" name="maxTeams" min="2" [disabled]="match.format != 'TEAMS'">
-                        </div>
-                        <div class="col-12 col-md-2">
-                            <label class="form-label">Jugadores / equipo</label>
-                            <input type="number" class="form-control" [(ngModel)]="match.maxPlayersTeam" name="maxPlayersTeam" min="1" [disabled]="match.format != 'TEAMS'">
-                        </div>
+                    <div class="d-grid d-md-flex justify-content-md-end mt-4">
+                        <button class="btn btn-lg btn-success" type="submit" [disabled]="!form.valid">CONFIRMAR</button>
                     </div>
-                </div>
-                <div class="d-grid d-md-flex justify-content-md-end mt-4">
-                    <button class="btn btn-lg btn-success" type="submit" [disabled]="!form.valid">CONFIRMAR</button>
-                </div>
-                
-            </form>
+                    
+                </form>
+            </div>
         </div>
-    </div>
+    </div>    
 </div>

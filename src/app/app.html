@@ -1,1 +1,7 @@
-<router-outlet></router-outlet>
+<div class="d-flex flex-column vh-100">
+    <app-navbar *ngIf="showNavbar"></app-navbar>
+
+    <main class="content">
+        <router-outlet></router-outlet>
+    </main>
+</div>
