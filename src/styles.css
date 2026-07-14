@@ -1,1 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --background: #f8f9fa;
+    --surface: #ffffff;
+    --text: #212529;
+    --input-color: #212529;
+    --navbar-bg: #ebeced;
+    --navbar-color-bg: #b9c4d0;
+
+    --primary: #0d6efd;
+    --secondary: #198754;
+
+    --border: #dee2e6;
+}
+
+[data-theme="dark"] {
+
+    --background: #121212;
+    --surface: #1d1d1d;
+    --text: #eeeeee;
+    --input-color: #212529;
+    --navbar-bg: #000000;
+    --navbar-color-bg: #3d2d2d;
+
+    --primary: #3d8bfd;
+    --secondary: #35c46c;
+
+    --border: #444444;
+}
+
+.page{
+    background: var(--background);
+    color: var(--text);
+}
+
+input{
+    color: var(--input-color) !important;
+}
+
+.card{
+    background: var(--surface);
+    border:1px solid var(--border);
+}

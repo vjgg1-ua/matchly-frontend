@@ -12,7 +12,7 @@ export class MatchService {
 	constructor(private http: HttpClient){}
 
   createMatch(matchRequest: CreateMatchRequest): Observable<MatchResponse>{
-    console.log(matchRequest)
+    //console.log(matchRequest)
     return this.http.post<MatchResponse>(`${this.apiUrl}/createMatch`, matchRequest);
   }
 }

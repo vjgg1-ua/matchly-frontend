@@ -9,7 +9,7 @@ import { DisciplineService } from '../../../services/discipline.service';
 
 @Component({
   selector: 'app-create',
-  imports: [FormsModule, CommonModule, ],
+  imports: [FormsModule, CommonModule],
   templateUrl: './create.html',
   styleUrl: './create.css',
 })
@@ -57,7 +57,7 @@ export class Create implements OnInit{
     this.error = '';
 
     const token = localStorage.getItem('token');
-    console.log(token);
+    //console.log(token);
     if(!token){
       this.error = 'No se detecta sesión... Vuelva a iniciar sesión';
       this.loading = false;
@@ -72,7 +72,7 @@ export class Create implements OnInit{
       next: (response) => {
         this.success = true;
         this.loading = false;
-        console.log('Se ha creado correctamente: ', response);
+        //console.log('Se ha creado correctamente: ', response);
       },
       error: (err) => {
         this.loading = false;
@@ -83,7 +83,7 @@ export class Create implements OnInit{
   }
 
   onDisciplineChange(){
-    console.log(this.match)
+    //console.log(this.match)
     this.disciplineService.getSubdisciplineByParent(this.match.disciplineId).subscribe({
       next: data => this.subdisciplines = data,
       error: err => console.error(err)

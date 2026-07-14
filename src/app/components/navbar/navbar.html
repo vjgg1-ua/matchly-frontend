@@ -1,3 +1,22 @@
-<nav class="vh-70 bg-danger">
-    SOY EL NAVBAR
+<nav class="vh-70 d-flex align-items-center nav">
+    <div class=" vh-70 w-15 d-flex nav-text justify-content-center align-items-center">
+        <img class="vh-70" src="/assets/logo.png" alt="logo de la app">
+    </div>
+    <div class="w-70 d-flex justify-content-center">
+        <ul class="navbar-menu mb-0 d-flex list-unstyled ">
+            <li class="nav-text"><a href="#">Inicio</a></li>
+            <li class="nav-text"><a href="#">Crear partido</a></li>
+            <li class="nav-text"><a href="#">Crear torneo</a></li>
+            <li class="nav-text"><a href="#">Proximos partidos</a></li>
+            <li class="nav-text"><a href="#">Historial</a></li>
+            <li class="nav-text"><a href="#">Contacto</a></li>
+        </ul>
+    </div>
+    <div class="w-15 d-flex gap-3 justify-content-center align-items-center">
+        <button class="btn btn-outline-light" (click)="toggleTheme()">
+            <i *ngIf="theme === 'dark'" class="sun-color bi bi-sun-fill"></i>
+            <i *ngIf="theme === 'light'" class="moon-color bi bi-moon-fill"></i> 
+        </button>
+            <img class="vh-30" src="/assets/perfil-generico.png" alt="imagen de perfil">
+    </div>    
 </nav>
