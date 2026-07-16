@@ -59,6 +59,7 @@ export class Contact implements OnInit{
         this.success = true;
         this.error = '';
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.loading = false;
