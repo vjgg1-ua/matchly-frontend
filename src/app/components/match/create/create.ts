@@ -57,7 +57,6 @@ export class Create implements OnInit{
     this.error = '';
 
     const token = localStorage.getItem('token');
-    //console.log(token);
     if(!token){
       this.error = 'No se detecta sesión... Vuelva a iniciar sesión';
       this.loading = false;

@@ -1,0 +1,15 @@
+:host {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    min-height: 100%;
+}
+
+textarea {
+    height: 250px;
+    resize: none;
+}
+
+button {
+    height: 50px;
+}

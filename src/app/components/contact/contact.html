@@ -1,0 +1,33 @@
+<div class="page container-fluid flex-column">
+    <div class="container-fluid pt-5 pb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-8">
+                <h2>Contacto</h2>
+                <form !ngIf="!success" #contactForm="ngForm" (ngSubmit)="sendMessage()">
+                    <div class="mb-3 row">
+                        <div>
+                            <!-- <div class="col-12">
+                                <label class="form-label">Correo de contacto</label>
+                                <input class="form-control" type="text" placeholder="Correo electronico del usuario">
+                            </div> -->
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Asunto</label>
+                                <input class="form-control" [(ngModel)]="contact.subject" type="text" name="subject" placeholder="Asunto del correo" required>
+                            </div>
+
+                            <div class="d-flex flex-column">
+                                <label class="form-label">Mensaje</label>
+                                <textarea class="form-control" [(ngModel)]="contact.body" type="text" name="body" placeholder="Cuerpo del mensaje" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-primary w-100" [disabled]="!contactForm.valid">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+						{{ loading ? 'Enviando' : 'Enviar' }}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

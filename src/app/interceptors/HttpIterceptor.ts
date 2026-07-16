@@ -10,6 +10,15 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
+    const publicUrls = [
+      '/api/user/login',
+      '/api/user/register'
+    ];
+
+    if (publicUrls.some(url => req.url.includes(url))) {
+      return next.handle(req);
+    }
+    
     const token = localStorage.getItem('jwt_token');
     let authReq = req;
 

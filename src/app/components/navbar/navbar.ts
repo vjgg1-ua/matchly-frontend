@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { ThemeService } from '../../services/theme.service'; 
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
   standalone: true
