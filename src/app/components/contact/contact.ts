@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ContactRequest } from '../../models/contact.model';
 import { ContactService } from '../../services/contact.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-contact',
@@ -23,7 +24,7 @@ export class Contact implements OnInit{
     body: ''
   }
 
-  constructor(private contactService: ContactService, private cdr: ChangeDetectorRef){}
+  constructor(private contactService: ContactService, private cdr: ChangeDetectorRef, private toastService: ToastService){}
 
   //cargar correo del usuario para cuando envíe el mensaje
   ngOnInit(): void {
@@ -33,7 +34,6 @@ export class Contact implements OnInit{
       const user = JSON.parse(local);
 
       this.contact.email = user.email;
-      console.log(this.contact);
     }
   }
 
@@ -59,13 +59,17 @@ export class Contact implements OnInit{
         this.success = true;
         this.error = '';
         this.loading = false;
+        this.toastService.show('success', "El correo se ha enviado con éxito");
         this.cdr.detectChanges();
       },
       error: (err) => {
         this.loading = false;
         this.error = err.error?.error ?? 'Error al enviar mensaje. Vuelva a iniciar sesión';
+        this.toastService.show('danger', "El correo no se ha enviado. Vuelva a iniciar sesión o envie el correo en unos instantes");
         this.cdr.detectChanges();
       }
     })
+
+    return;
   }
 }

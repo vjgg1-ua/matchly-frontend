@@ -1,0 +1,10 @@
+<section class="toast-container">
+    @for (toast of toasts(); track $index) {
+        <div class="toast-message" [class.toast-success]="toast.type === 'success'" [class.toast-danger]="toast.type === 'danger'" [class.toast-warning]="toast.type === 'warning'" [class.toast-info]="toast.type === 'info'">
+            {{ toast.message }}
+            <button class="toast-close" (click)="closeToast(toast)">
+                ✕
+            </button>
+        </div>
+    }
+</section>

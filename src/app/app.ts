@@ -3,10 +3,11 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
 import { Navbar } from './components/navbar/navbar';
 import { CommonModule } from '@angular/common';
+import { ToastComponent } from './components/toast/toast';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, CommonModule],
+  imports: [RouterOutlet, Navbar, CommonModule, ToastComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
   standalone: true
