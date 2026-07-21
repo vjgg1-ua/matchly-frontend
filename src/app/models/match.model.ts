@@ -26,7 +26,8 @@ export interface MatchResponse {
     status: MatchStatus;
     location: string;
     scheduledAt: string;
-    maxPlayer: number;
+    maxPlayers: number;
     maxTeams?: number | undefined;
     maxPlayersTeam?: number | undefined;
+    currentPlayers: number | undefined;
 }
