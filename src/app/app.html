@@ -1,7 +1,7 @@
 <div class="d-flex flex-column vh-100">
-    <app-navbar *ngIf="showNavbar"></app-navbar>
+    <app-navbar class="elemento-oculto-mobile" *ngIf="showNavbar"></app-navbar>
     <app-toast-component></app-toast-component>
-    <main class="content">
+    <main class="page content">
         <router-outlet></router-outlet>
     </main>
 </div>

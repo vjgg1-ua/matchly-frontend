@@ -1,0 +1,35 @@
+.w-30 {
+    width: 30%;
+}
+
+.w-70{
+    width: 70%;
+}
+
+.card-title{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.match-card {
+    width: 300px;
+    max-width: 320px;      /* tamaño máximo */
+    height: 500px;         /* mismo alto para todas */
+}
+
+.match-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn{
+    margin-top: auto;
+}

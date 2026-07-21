@@ -6,6 +6,7 @@ import { Register } from './components/register/register';
 import { Create } from './components/match/create/create';
 import { authGuard } from './guards/auth-guard';
 import { Contact } from './components/contact/contact';
+import { ShowAllMatches } from './components/match/show-all-matches/show-all-matches';
 
 export const routes: Routes = [
     {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -13,5 +14,6 @@ export const routes: Routes = [
     {path: 'register', component: Register},
     {path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
     {path: 'create-match', component: Create, canActivate: [authGuard]},
-    {path: 'contact', component: Contact}
+    {path: 'contact', component: Contact},
+    {path: 'show-matches', component: ShowAllMatches}
 ];

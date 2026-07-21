@@ -19,9 +19,9 @@ export interface MatchResponse {
     id: number;
     title: string;
     description?: string;
-    disciplineId: number;
-    subdisciplineId: number;
-    organizer: number;
+    discipline: string;
+    subdiscipline: string;
+    user: string;
     format: MatchFormat;
     status: MatchStatus;
     location: string;

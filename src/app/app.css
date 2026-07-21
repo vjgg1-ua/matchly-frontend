@@ -2,3 +2,10 @@
     flex: 1;
     overflow-y: auto;
 }
+
+/* Ocultar el elemento si la pantalla es menor a 768px */
+@media (max-width: 767px) {
+  .elemento-oculto-mobile {
+    display: none;
+  }
+}

@@ -12,7 +12,7 @@ export class ContactService {
 
   constructor(private http: HttpClient){}
 
-  sendMessageContact(contactRequest: ContactRequest): Observable<ApiResponse>{
-    return this.http.post<ApiResponse>(this.apiUrl, contactRequest);
+  sendMessageContact(contactRequest: ContactRequest): Observable<ApiResponse<any>>{
+    return this.http.post<ApiResponse<any>>(this.apiUrl, contactRequest);
   }
 }
