@@ -6,14 +6,46 @@
 
 } @else if (matches.length > 0) {
 
-    <div class="container-fluid page py-4">
-        <div class="row justify-content-center g-4">
-            @for (match of matches; track match.id) {
-                <div class="col-auto d-flex justify-content-center">
-                    <app-card [match]="match" [disciplineImg]="showDisciplineImg(match)"></app-card>
+    <div class="container page py-4">
+        <div class="row justify-content-start mt-5 mb-5 gx-4">
+            <div class="col-lg-10 d-flex flex-md-row  flex-column flex-md-row gap-3 gap-md-4">
+                <div class="d-flex flex-column align-items-center">
+                    <label for="discipline" class="form-label fw-semibold w-auto">Disciplina</label>
+
+                    <select class="form-select mb-0 shadow-sm w-auto" id="discipline" [(ngModel)]="disciplineSelected" (change)="filter()">
+                        <option value="">Todas</option>
+                        @for (d of disciplines; track d.id) {
+                            <option [value]="d.name">{{ d.name }}</option>
+                        }
+                    </select>
                 </div>
-            }
+
+                <div class="d-flex flex-column align-items-center">
+                    <label for="date" class="form-label fw-semibold">
+                        Fecha
+                    </label>
+
+                    <input id="date" type="date" class="form-control w-auto" [(ngModel)]="selectedDate" (change)="filter()">
+                </div>
+            </div>
         </div>
+
+        @if (filteredMatches.length > 0) {
+            <div class="row justify-content-center g-4">
+                @for (match of filteredMatches; track match.id) {
+                    <div class="col-auto">
+                        <app-card [match]="match" [disciplineImg]="showDisciplineImg(match)"></app-card>
+                    </div>
+                }
+            </div>
+        }
+        
+        @else {
+            <div class="container-fluid page d-flex justify-content-center">
+                <h2>No hay partidos disponibles de esta categoria... ¡Sé el primero!</h2>
+            </div>
+        }
+        
     </div>
 
 } @else {

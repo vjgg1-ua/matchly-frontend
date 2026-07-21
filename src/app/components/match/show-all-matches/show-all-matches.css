@@ -5,6 +5,10 @@
     width: 100%;
 }
 
+:host > * {
+    min-width: 0;
+}
+
 .w-70{
     width: 70%;
 }

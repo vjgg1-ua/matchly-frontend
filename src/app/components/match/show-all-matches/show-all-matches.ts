@@ -4,10 +4,13 @@ import { MatchService } from '../../../services/match.service';
 import { Router } from '@angular/router';
 import { MatchResponse } from '../../../models/match.model';
 import { CommonModule, NgIf } from '@angular/common';
+import { DisciplineService } from '../../../services/discipline.service';
+import { DisciplineResponse } from '../../../models/discipline.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-show-all-matches',
-  imports: [Card, CommonModule],
+  imports: [Card, CommonModule, FormsModule],
   templateUrl: './show-all-matches.html',
   styleUrl: './show-all-matches.css',
 })
@@ -16,14 +19,20 @@ export class ShowAllMatches implements OnInit{
   loading = signal(true);
 
   disciplinesImg: string[] = []
+  disciplines: DisciplineResponse[] = [];
+  disciplineSelected = "";
+  filteredMatches: MatchResponse[] = [];
+  selectedDate = ""
+  counterMaxStackTraceCalls = 1;
 
-  constructor(private matchService: MatchService, private router: Router, private cdr: ChangeDetectorRef) {}
+  constructor(private matchService: MatchService, private router: Router, private cdr: ChangeDetectorRef, private disciplineService: DisciplineService) {}
 
   ngOnInit(): void {
     this.matchService.getAllMatches().subscribe({
       next: (response) => {        
         this.matches = response.data ?? [];
-        console.log("Matches: ", this.matches)
+        this.filteredMatches = [...this.matches];
+        //console.log("Matches: ", this.matches)
         this.loading.set(false);
         
       },
@@ -33,6 +42,11 @@ export class ShowAllMatches implements OnInit{
         this.cdr.detectChanges();
       }
     })
+
+    this.disciplineService.getDisciplines().subscribe({
+      next: data => this.disciplines = data,
+      error: err => console.error(err)
+    }); 
   }
 
   showDisciplineImg(match: MatchResponse): string{
@@ -68,5 +82,20 @@ export class ShowAllMatches implements OnInit{
       default:
         return "";
     }
+  }
+
+  filter() {
+    this.filteredMatches = this.matches.filter(match => {
+
+      const cumpleDisciplina =
+        !this.disciplineSelected ||
+        match.discipline === this.disciplineSelected;
+
+      const cumpleFecha =
+        !this.selectedDate ||
+        match.scheduledAt.substring(0, 10) === this.selectedDate;
+
+      return cumpleDisciplina && cumpleFecha;
+    });
   }
 }

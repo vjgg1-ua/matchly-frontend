@@ -13,11 +13,9 @@ export class Card implements OnInit{
   @Input() match: MatchResponse | undefined;
   @Input() disciplineImg!: string;
 
-constructor(){
-  
-}
+constructor(){}
 
   ngOnInit(): void { 
-    console.log(this.disciplineImg)
+    //console.log(this.disciplineImg)
   }
 }
