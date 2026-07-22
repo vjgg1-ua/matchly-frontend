@@ -25,7 +25,11 @@
                         Fecha
                     </label>
 
-                    <input id="date" type="date" class="form-control w-auto" [(ngModel)]="selectedDate" (change)="filter()">
+                    <input id="date" type="date" class="form-control w-auto shadow-sm" [(ngModel)]="selectedDate" (change)="filter()">
+                </div>
+                <div class="d-flex flex-column align-items-center">
+                    <label for="location" class="form-label fw-semibold w-auto">Ubicación</label>
+                    <input type="text" id="location" class="form-control shadow-sm w-auto" placeholder="Online, ciudad..." [(ngModel)]="location" (change)="filter()">
                 </div>
             </div>
         </div>

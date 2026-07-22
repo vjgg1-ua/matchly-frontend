@@ -22,8 +22,8 @@ export class ShowAllMatches implements OnInit{
   disciplines: DisciplineResponse[] = [];
   disciplineSelected = "";
   filteredMatches: MatchResponse[] = [];
-  selectedDate = ""
-  counterMaxStackTraceCalls = 1;
+  selectedDate: string = ""
+  location: string = "";
 
   constructor(private matchService: MatchService, private router: Router, private cdr: ChangeDetectorRef, private disciplineService: DisciplineService) {}
 
@@ -95,7 +95,13 @@ export class ShowAllMatches implements OnInit{
         !this.selectedDate ||
         match.scheduledAt.substring(0, 10) === this.selectedDate;
 
-      return cumpleDisciplina && cumpleFecha;
+        let matchLocation = match.location.toLowerCase();
+
+        const locationIncluded = 
+        !this.location ||
+        matchLocation.includes(this.location.toLowerCase());
+
+      return cumpleDisciplina && cumpleFecha && locationIncluded;
     });
   }
 }
