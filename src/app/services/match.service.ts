@@ -18,10 +18,10 @@ export class MatchService {
   }
 
   getAllMatches(): Observable<ApiResponse<MatchResponse[]>> {
-    return this.http.get<ApiResponse<MatchResponse[]>>(`${this.apiUrl}/matches`);
+    return this.http.get<ApiResponse<MatchResponse[]>>(`${this.apiUrl}`);
   }
 
   getMatchDetails(id: Number): Observable<ApiResponse<MatchResponse>> {
-    return this.http.get<ApiResponse<MatchResponse>>(`${this.apiUrl}/show-matches/${id}`);
+    return this.http.get<ApiResponse<MatchResponse>>(`${this.apiUrl}/${id}`);
   }
 }

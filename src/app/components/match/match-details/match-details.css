@@ -1,0 +1,114 @@
+.match-header {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.match-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+/* .discipline-badge ya viene de styles.css global, no hace falta redefinirla aquí */
+
+.discipline-badge { 
+    font-weight: 600; 
+    padding: 0.4rem 0.9rem; 
+    font-size: 0.85rem; 
+    text-transform: uppercase; 
+    letter-spacing: 0.03em; 
+}
+
+.detail-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    color: var(--text);
+}
+
+.detail-label {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    opacity: 0.6;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+
+.info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    color: var(--text);
+    position: sticky;
+    top: 1.5rem;
+}
+
+.info-row {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.info-row span {
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.status-badge {
+    align-self: flex-start;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+}
+
+.status-open {
+    background: var(--status-open-bg);
+    color: var(--status-open-color);
+}
+
+.status-full {
+    background: var(--status-full-bg);
+    color: var(--status-full-color);
+}
+
+.status-in-progress {
+    background: var(--status-in-progress-bg);
+    color: var(--status-in-progress-color);
+}
+
+.status-finished {
+    background: var(--status-finished-bg);
+    color: var(--status-finished-color);
+}
+
+.status-cancelled {
+    background: var(--status-cancelled-bg);
+    color: var(--status-cancelled-color);
+}
+
+.join-btn {
+    padding: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.join-btn:hover {
+    filter: brightness(0.9);
+}
+
+@media (max-width: 991px) {
+    .info-card {
+        position: static;
+    }
+
+    .match-title {
+        font-size: 1.5rem;
+    }
+}

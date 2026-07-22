@@ -1,1 +1,73 @@
-<p>match-details works!</p>
+@if (loading()) {
+    <div class="text-center mt-5">
+        <div class="spinner-border"></div>
+    </div>
+} @else {
+    <div class="container page py-4">
+
+        <!-- Cabecera -->
+        <div class="match-header mb-4">
+            <span class="badge rounded-pill discipline-badge mb-2">
+                {{ match?.discipline }}<span *ngIf="match?.subdiscipline"> · {{ match?.subdiscipline }}</span>
+            </span>
+            <h1 class="match-title mb-0">{{ match?.title }}</h1>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- Columna principal -->
+            <div class="col-lg-8">
+                <div class="detail-card mb-4">
+                    <label class="detail-label">Descripción</label>
+                    @if (!match?.description) {
+                        <p class="mb-0">Sin descripción</p>
+                    } @else {
+                        <p class="mb-0">{{ match?.description }}</p>
+                    }
+                </div>
+
+                <div class="detail-card">
+                    <label class="detail-label">Organizador</label>
+                    <p class="mb-0 d-flex align-items-center gap-2">
+                        <i class="bi bi-person-circle"></i> {{ match?.user }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Sidebar de info clave + acción -->
+            <div class="col-lg-4">
+                <div class="info-card">
+
+                    <div class="info-row">
+                        <label class="detail-label"><i class="bi bi-clock"></i> Horario</label>
+                        <span>{{ match?.scheduledAt | date:'dd/MM/yyyy HH:mm' }}</span>
+                    </div>
+
+                    <div class="info-row">
+                        <label class="detail-label"><i class="bi bi-geo-alt"></i> Ubicación</label>
+                        <span>{{ match?.location }}</span>
+                    </div>
+
+                    <div class="info-row">
+                        <label class="detail-label"><i class="bi bi-people"></i> Jugadores</label>
+                        <span>{{ match?.currentPlayers }} / {{ match?.maxPlayers }}</span>
+                    </div>
+
+                    <div class="info-row">
+                        <label class="detail-label"><i class="bi bi-diagram-3"></i> Formato</label>
+                        <span>{{ match?.format }}</span>
+                    </div>
+
+                    <div class="info-row border-bottom-0">
+                        <label class="detail-label">Estado</label>
+                        <span class="badge status-badge" [ngClass]="statusClass(match?.status)">
+                            {{ statusLabel(match?.status) }}
+                        </span>
+                    </div>
+
+                    <button class="btn btn-primary w-100 mt-3 join-btn">APUNTARSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
