@@ -11,6 +11,6 @@
                 <p class="mb-0">👤 {{ match?.user }}</p>
             </div>
 
-            <button class="btn btn-primary mt-auto">Detalles</button>
+            <button class="btn btn-primary mt-auto" [routerLink]="['/show-matches', match?.id]">Detalles</button>
         </div>
     </div>

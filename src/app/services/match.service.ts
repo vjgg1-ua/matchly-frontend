@@ -20,4 +20,8 @@ export class MatchService {
   getAllMatches(): Observable<ApiResponse<MatchResponse[]>> {
     return this.http.get<ApiResponse<MatchResponse[]>>(`${this.apiUrl}/matches`);
   }
+
+  getMatchDetails(id: Number): Observable<ApiResponse<MatchResponse>> {
+    return this.http.get<ApiResponse<MatchResponse>>(`${this.apiUrl}/show-matches/${id}`);
+  }
 }

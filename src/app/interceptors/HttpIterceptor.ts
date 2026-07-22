@@ -13,7 +13,8 @@ export class JwtInterceptor implements HttpInterceptor {
     const publicUrls = [
       '/api/user/login',
       '/api/user/register',
-      'api/match/matches'
+      'api/match/matches',
+      'api/match/matches/${id}'
     ];
 
     if (publicUrls.some(url => req.url.includes(url))) {
